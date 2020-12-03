@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+var multer = require('multer');
 
 
 const app = express();
@@ -10,6 +11,8 @@ const port = process.env.PORT || 5000;
 //middleware
 app.use(cors());
 app.use(express.json());
+
+app.use(multer({dest:'uploads/'}).single('photo'));
 
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {useNewParser: true, useCreateIndex: true}
