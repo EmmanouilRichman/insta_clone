@@ -1,6 +1,8 @@
 const router = require('express').Router();
 let Post = require('../models/posts');
 var fs = require('fs');
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' });
 
 router.route('/').get((req, res) => {
     Post.find()
@@ -8,11 +10,11 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res) => {
+router.route('/add').post(upload.single('avatar'),(req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const img = {};
-    img.data = fs.readFileSync(req.body.img);
+    img.data =req.file;
     img.contentType = 'image/png';
 
     const newPost = new Post({
