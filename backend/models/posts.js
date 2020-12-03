@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
     title: {type: String, required: true},
     description: {type: String, required: true},
-    img: { data: Buffer, contentType: String },
+    img: { type: String },
     date: {type: Date, default: Date.now()},
     likeCount: {type: Number, default: 0},
     likes: {type: String}

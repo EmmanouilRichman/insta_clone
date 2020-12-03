@@ -30,19 +30,19 @@ export default class CreatePost extends Component {
     }
 
     onChangeImg(e){
-        this.setState({
-            img: e.target.value
-        });
+        this.setState({ img: e.target.files[0]});
     }
 
     onSubmit(e){
        e.preventDefault();
-       const post = {
-           title: this.state.title,
-           description: this.state.description,
-           img: this.state.img
-       }
+        const post = {
+            title: this.state.title,
+            description: this.state.description,
+            img: this.state.img
+        };
        axios.post('http://localhost:5000/posts/add', post)
+        .then(res => console.log(res.data));
+       
        window.location = "/";
     }
 
@@ -69,7 +69,7 @@ export default class CreatePost extends Component {
                         <label>Photo: </label>
                         <input type="file"
                         className="form-control"
-                        value={this.state.img}
+                        // value={this.state.img}
                         onChange={this.onChangeImg}/>
                     </div>
                     <div className="form-group">
