@@ -1,33 +1,7 @@
 const router = require('express').Router();
-const fs = require('fs');
 let Post = require('../models/posts');
-const multer  = require('multer');
-const uuid = require('uuid');
-
-const DIR = 'pics/';
 
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, DIR);
-    },
-    filename: (req, file, cb) => {
-        const fileName = file.originalname.toLowerCase().split(' ').join('-');
-        cb(null, uuid() + '-' + fileName)
-    }
-});
-
-var upload = multer({
-    storage: storage,
-    fileFilter: (req, file, cb) => {
-        if (file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
-            cb(null, true);
-        } else {
-            cb(null, false);
-            return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-        }
-    }
-})
 
 
 router.route('/').get((req, res) => {
@@ -36,13 +10,12 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post(upload.single('img'), (req, res, next) => {
+router.route('/add').post((req, res, next) => {
 
-        const url = req.protocol + '://' + req.get('host');
 
         const title = req.body.title;
         const description = req.body.description;
-        const img = url + '/pics/' + req.body.img;
+        const img = req.body.img;
         console.log(img);
 
         const newPost = new Post({

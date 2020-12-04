@@ -11,7 +11,9 @@ export default class PostList extends Component {
 
         this.deletePost = this.deletePost.bind(this);
 
-        this.state = {posts: []};
+        this.state = {
+            posts: []
+        };
     }
     componentDidMount(){
         axios.get('http://localhost:5000/posts/')
@@ -40,8 +42,10 @@ export default class PostList extends Component {
                     <Card.Img variant="top" src={`${post.img}`} />
                     <Card.Body>
                         <Card.Title>{post.title}</Card.Title>
-                    <Card.Text>{post.description}</Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
+                        <Card.Text>{post.description}</Card.Text>
+                        <Card.Text>Likes: {post.likeCount}</Card.Text>
+                        <Button variant="primary">Edit</Button>
+                        <Button variant="danger">Delete</Button>
                     </Card.Body>
                 </Card>
                     );

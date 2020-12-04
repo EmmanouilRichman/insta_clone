@@ -30,7 +30,7 @@ export default class CreatePost extends Component {
     }
 
     onChangeImg(e){
-        this.setState({ img: e.target.files[0]});
+        this.setState({ img: e.target.value});
     }
 
     onSubmit(e){
@@ -66,10 +66,10 @@ export default class CreatePost extends Component {
                         onChange={this.onChangeDescription} />
                     </div>
                     <div className="form-group">
-                        <label>Photo: </label>
-                        <input type="file"
+                        <label>Photo Link: </label>
+                        <input type="text"
                         className="form-control"
-                        // value={this.state.img}
+                        value={this.state.img}
                         onChange={this.onChangeImg}/>
                     </div>
                     <div className="form-group">

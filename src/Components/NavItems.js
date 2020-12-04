@@ -13,6 +13,9 @@ export default function NavItems() {
                 <li className="navbar-item">
                     <Link to="/create" className="nav-link">Create Post</Link>
                 </li>
+                <li className="navbar-item">
+                    <Link to="/profile" className="nav-link">Profile</Link>
+                </li>
             </React.Fragment>
        )
     )
