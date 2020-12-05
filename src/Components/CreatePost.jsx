@@ -41,8 +41,10 @@ export default class CreatePost extends Component {
             img: this.state.img
         };
        axios.post('http://localhost:5000/posts/add', post)
-        .then(res => console.log(res.data));
-       
+        .then(res => console.log(res.data))
+        .catch((error) => {
+            console.log(error);
+        })
        window.location = "/";
     }
 

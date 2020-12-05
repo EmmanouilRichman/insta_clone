@@ -45,10 +45,6 @@ router.route('/update/:id').post((req, res) => {
             post.title = req.body.title;
             post.description = req.body.description;
             post.img = req.body.img;
-            post.date = req.body.date;
-            post.likeCount = req.body.likeCount;
-            post.likes = req.body.likes;
-
             post.save()
                 .then(() => res.json('Post Updated'))
                 .catch(err => res.status(400).json('Error: ' + err))

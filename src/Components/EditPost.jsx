@@ -32,7 +32,6 @@ export default class EditPost extends Component {
             })
         };
 
-
     onChangeTitle(e){
         this.setState({
             title: e.target.value
@@ -49,15 +48,24 @@ export default class EditPost extends Component {
         this.setState({ img: e.target.value});
     }
 
-    onSubmit(){
-        
-    }
+    onSubmit(e){
+        e.preventDefault();
+         const post = {
+            title: this.state.title,
+            description: this.state.description,
+            img: this.state.img
+         };
+        axios.post('http://localhost:5000/posts/update/' + this.props.match.params.id, post)
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
 
+        window.location = "/";
+    }
     render() {
         return (
             <div>
                  <h3>Edit Post</h3>
-               <form onSubmit={(this.onSubmit)}>
+               <form onSubmit={this.onSubmit}>
                    <div className="form-group">
                        <label>Title: </label>
                        <input type="text" 
@@ -80,7 +88,7 @@ export default class EditPost extends Component {
                         onChange={this.onChangeImg}/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Upload Post" className="btn btn-primary" />
+                        <input type="submit" value="Edit Post" className="btn btn-primary" />
                     </div>
                </form>
             </div>
