@@ -10,13 +10,12 @@ router.route('/').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-router.route('/add').post((req, res, next) => {
+router.route('/add').post((req, res) => {
 
 
         const title = req.body.title;
         const description = req.body.description;
         const img = req.body.img;
-        console.log(img);
 
         const newPost = new Post({
             title,

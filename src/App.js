@@ -11,12 +11,12 @@ import Profile from './Components/Profile';
 function App() {
   return (
     <Router>
-        <Navbar />
+       <Navbar />
         <div className="container">
-        <Route path="/" exact component={PostList} />
-        <Route path="/edit/:id" component={EditPost} />
-        <Route path="/create"  component={CreatePost} />
-        <Route path="/profile" component={Profile} />
+          <Route path="/" exact component={PostList} />
+          <Route path="/edit/:id" component={EditPost} />
+          <Route path="/create"  component={CreatePost} />
+          <Route path="/profile" component={Profile} />
       </div>
     </Router>
   );

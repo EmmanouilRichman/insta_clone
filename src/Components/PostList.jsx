@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
+import { useAuth0 } from '@auth0/auth0-react';
 
 
 export default class PostList extends Component {
@@ -38,14 +39,14 @@ export default class PostList extends Component {
             <div>
                 {this.state.posts.map(post => {
                     return(
-                    <Card style={{ width: '18rem' }} key={post._id}>
+                    <Card style={{ width: '18rem' }}>
                     <Card.Img variant="top" src={`${post.img}`} />
                     <Card.Body>
                         <Card.Title>{post.title}</Card.Title>
                         <Card.Text>{post.description}</Card.Text>
                         <Card.Text>Likes: {post.likeCount}</Card.Text>
-                        <Button variant="primary">Edit</Button>
-                        <Button variant="danger">Delete</Button>
+                        <Link to= {`/edit/${post._id}`} ><Button variant="primary" >Edit</Button></Link>
+                        <Button variant="danger" onClick={() => this.deletePost(`${post._id}`)}>Delete</Button>
                     </Card.Body>
                 </Card>
                     );

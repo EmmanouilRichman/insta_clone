@@ -14,7 +14,7 @@ export default class CreatePost extends Component {
         this.state = {
             title: '',
             description: '',
-            img: ''
+            img: '',
         }
     }
     onChangeTitle(e){
@@ -50,7 +50,7 @@ export default class CreatePost extends Component {
         return (
             <div>
                <h3>Create Post</h3>
-               <form onSubmit={this.onSubmit}>
+               <form onSubmit={(this.onSubmit)}>
                    <div className="form-group">
                        <label>Title: </label>
                        <input type="text" 
@@ -73,7 +73,7 @@ export default class CreatePost extends Component {
                         onChange={this.onChangeImg}/>
                     </div>
                     <div className="form-group">
-                        <input type="submit" value="Upload Post" className="btn btn-primary" onSubmit={this.onSubmit} />
+                        <input type="submit" value="Upload Post" className="btn btn-primary" />
                     </div>
                </form>
             </div>
