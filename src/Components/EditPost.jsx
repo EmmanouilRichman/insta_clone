@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 export default class EditPost extends Component {
     constructor({match, ...props}){
@@ -14,6 +15,7 @@ export default class EditPost extends Component {
             title: '',
             description: '',
             img: '',
+            redirect: false
         }
     }
 
@@ -59,9 +61,12 @@ export default class EditPost extends Component {
         .then(res => console.log(res.data))
         .catch(err => console.log(err));
 
-        window.location = "/";
+        this.setState({redirect: true});
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect push to="/" />;
+        }
         return (
             <div>
                  <h3>Edit Post</h3>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 export default class CreatePost extends Component {
     constructor(props){
@@ -15,6 +16,7 @@ export default class CreatePost extends Component {
             title: '',
             description: '',
             img: '',
+            redirect: false
         }
     }
     onChangeTitle(e){
@@ -45,10 +47,13 @@ export default class CreatePost extends Component {
         .catch((error) => {
             console.log(error);
         })
-       window.location = "/";
+       this.setState({redirect: true})
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Redirect push to="/" />;
+       }
         return (
             <div>
                <h3>Create Post</h3>

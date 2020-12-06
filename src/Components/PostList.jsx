@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
@@ -46,7 +46,6 @@ export default class PostList extends Component {
                             <Card.Header as="h5">
                             <Nav variant="pills" defaultActiveKey="#first">
                             <Nav.Item>
-                            <Nav.Link href={`/edit/${post._id}`}>Edit</Nav.Link>
                             </Nav.Item>
                             </Nav>
                             </Card.Header>
@@ -57,6 +56,7 @@ export default class PostList extends Component {
                                 <Card.Text>{post.description}</Card.Text>
                                 <Card.Text>Likes: {post.likeCount} </Card.Text>
                                 <Card.Text>Created on: {Moment(`${post.date}`).format('MM/DD/YYYY')}</Card.Text>
+                                <Button variant="primary" onClick={() => <Redirect push to={`/edit/${post._id}`} />}>Edit</Button>
                                 <Button variant="danger" onClick={() => this.deletePost(`${post._id}`)}>Delete</Button>
                             </Card.Body>
                         </Card>
