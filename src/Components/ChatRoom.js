@@ -9,11 +9,13 @@ export default class ChatRoom extends Component {
 
 
         this.onChangeMessage = this.onChangeMessage.bind(this);
+        this.onChangeName = this.onChangeName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
             messages: [],
             message: '',
+            name: '',
             redirect: false
         }
     }
@@ -32,15 +34,31 @@ export default class ChatRoom extends Component {
         });
     }
 
+    onChangeName(e){
+      this.setState({
+        name: e.target.value
+      })
+    }
+
     onSubmit(e){
        e.preventDefault();
+
+       const newMessage = {
+        message: this.state.message,
+        name: this.state.name,
+    };
+   axios.post('http://localhost:5000/chat/add',newMessage)
+    .then(res => console.log(res.data))
+    .catch((error) => {
+        console.log(error);
+    })
        this.setState({redirect: true});
        
     }
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/chat" />;
+           return window.location.reload();
        }
         return (
             <div className="container">
@@ -51,7 +69,7 @@ export default class ChatRoom extends Component {
                     <ul style={{listStyle: 'none'}}>
                     {this.state.messages.map(chat => {
                         return(
-                        <li>{chat.messages.name}: {chat.messages.message} - <i>{Moment(`${chat.messages.date}`).format('MM/DD/YYYY')}</i></li>
+                        <li style={{marginTop: "20px", overflow: 'scroll'}}>{chat.name}: {chat.message} - <i>{Moment(`${chat.date}`).format('MM/DD/YYYY')}</i></li>
                         )
                     })}
                     </ul>
@@ -62,10 +80,16 @@ export default class ChatRoom extends Component {
                 <form onSubmit={(this.onSubmit)} style={{width: '300px', marginLeft: '35%'}}>
                     <h3>Chat</h3>
                     <div className="form-group">
+                        <label>Chat</label>
                         <input type="text" 
                         className="form-control" 
                         value={this.state.message} 
                         onChange={this.onChangeMessage}/>
+                        <label>Name</label>
+                         <input type="text" 
+                        className="form-control" 
+                        value={this.state.name} 
+                        onChange={this.onChangeName}/>
                         </div>
                         <div className="form-group">
                             <input type="submit" value="Send Chat" className="btn btn-primary" />
