@@ -8,7 +8,7 @@ const messageSchema = new Schema({
 })
 
 const chatSchema = new Schema({
-   message: [messageSchema]
+   messages: [messageSchema]
 });
 
 const Chat = mongoose.model('Chat', chatSchema);

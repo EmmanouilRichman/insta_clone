@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { browserHistory } from 'react-router'
 import { Redirect } from 'react-router';
+import Moment from 'moment';
 
 export default class ChatRoom extends Component {
     constructor(props){
@@ -40,14 +40,21 @@ export default class ChatRoom extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/" />;
+            return <Redirect push to="/chat" />;
        }
         return (
             <div className="container">
                 <div className="jumbotron" style={{textAlign: 'center'}}>
                     <h1>Chat Room</h1>
                 </div>
-                <div className="container" style={{border: '1px solid black', height: '300px', marginTop: '100px'}}>
+                <div className="container" style={{border: '1px solid black', height: '300px', marginTop: '100px',overflowX:'hidden', overflowY: 'auto'}}>
+                    <ul style={{listStyle: 'none'}}>
+                    {this.state.messages.map(chat => {
+                        return(
+                        <li>{chat.messages.name}: {chat.messages.message} - <i>{Moment(`${chat.messages.date}`).format('MM/DD/YYYY')}</i></li>
+                        )
+                    })}
+                    </ul>
 
                 </div>
 
@@ -55,7 +62,6 @@ export default class ChatRoom extends Component {
                 <form onSubmit={(this.onSubmit)} style={{width: '300px', marginLeft: '35%'}}>
                     <h3>Chat</h3>
                     <div className="form-group">
-                        <label>Message: </label>
                         <input type="text" 
                         className="form-control" 
                         value={this.state.message} 
