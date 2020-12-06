@@ -16,6 +16,9 @@ export default function NavItems() {
                 <li className="navbar-item">
                     <Link to="/profile" className="nav-link">Profile</Link>
                 </li>
+                <li className="navbar-item">
+                    <Link to="/chat" className="nav-link">Chat</Link>
+                </li>
             </React.Fragment>
        )
     )

@@ -7,6 +7,7 @@ import PostList from './Components/PostList.jsx';
 import EditPost from './Components/EditPost.jsx';
 import CreatePost from './Components/CreatePost.jsx';
 import Profile from './Components/Profile';
+import ChatRoom from './Components/ChatRoom';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/edit/:id" component={EditPost} />
           <Route path="/create"  component={CreatePost} />
           <Route path="/profile" component={Profile} />
+          <Route path="/chat" component={ChatRoom} />
       </div>
     </Router>
   );
