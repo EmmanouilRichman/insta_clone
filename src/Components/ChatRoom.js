@@ -36,7 +36,7 @@ import{withAuth0} from '@auth0/auth0-react';
 
 
     getData = () => {
-      axios.get('http://localhost:5000/chat/')
+      axios.get('http://localhost:600/chat/')
       .then(res => {
           this.setState({messages: res.data})
           this.intervalID = setTimeout(this.getData.bind(this), 5000);
@@ -58,7 +58,7 @@ import{withAuth0} from '@auth0/auth0-react';
         message: this.state.message,
         name: this.state.name,
     };
-   axios.post('http://localhost:5000/chat/add',newMessage)
+   axios.post('http://localhost:600/chat/add',newMessage)
     .then(res => console.log(res.data))
     .catch((error) => {
         console.log(error);

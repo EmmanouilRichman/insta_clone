@@ -58,7 +58,7 @@ export default class EditPost extends Component {
             description: this.state.description,
             img: this.state.img
          };
-        axios.post('http://localhost:5000/posts/update/' + this.props.match.params.id, post)
+        axios.post('http://localhost:600/posts/update/' + this.props.match.params.id, post)
         .then(res => console.log(res.data))
         .catch(err => console.log(err));
 

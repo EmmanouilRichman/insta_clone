@@ -20,7 +20,7 @@ import {Link} from 'react-router-dom';
         };
     }
     componentDidMount(){
-        axios.get('http://localhost:5000/posts/')
+        axios.get('http://localhost:600/posts/')
             .then(res => {
                 this.setState({posts: res.data})
             })
@@ -30,7 +30,7 @@ import {Link} from 'react-router-dom';
     }
 
     deletePost(id){
-        axios.delete('http://localhost:5000/posts/' + id)
+        axios.delete('http://localhost:600/posts/' + id)
             .then(res => console.log(res.data));
         this.setState({
             posts: this.state.posts.filter(el => el._id !== id)
