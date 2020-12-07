@@ -7,7 +7,9 @@ const postSchema = new Schema({
     img: { type: String },
     date: {type: Date, default: Date.now()},
     likeCount: {type: Number, default: 0},
-    likes: {type: String}
+    comments:[{
+        message:{type: String}
+    }]
 });
 
 const Post = mongoose.model('Post', postSchema);

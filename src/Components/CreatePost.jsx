@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import {withAuth0} from '@auth0/auth0-react';
 
-export default class CreatePost extends Component {
+class CreatePost extends Component {
     constructor(props){
         super(props);
 
@@ -87,3 +88,5 @@ export default class CreatePost extends Component {
         )
     }
 }
+
+export default withAuth0(CreatePost);

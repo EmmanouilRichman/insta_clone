@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import Moment from 'moment';
 
 export default class ChatRoom extends Component {
+  intervalID;
     constructor(props){
         super(props);
 
@@ -20,13 +21,23 @@ export default class ChatRoom extends Component {
         }
     }
     componentDidMount(){
-        axios.get('http://localhost:5000/chat/')
-            .then(res => {
-                this.setState({messages: res.data})
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+
+      this.getData();
+    }
+
+    componentWillUnmount(){
+      clearTimeout(this.intervalID);
+    }
+
+    getData = () => {
+      axios.get('http://localhost:5000/chat/')
+      .then(res => {
+          this.setState({messages: res.data})
+          this.intervalID = setTimeout(this.getData.bind(this), 5000);
+      })
+      .catch((error) => {
+          console.log(error);
+      })
     }
     onChangeMessage(e){
         this.setState({
@@ -53,12 +64,11 @@ export default class ChatRoom extends Component {
         console.log(error);
     })
        this.setState({redirect: true});
-       
     }
 
     render() {
         if (this.state.redirect) {
-           return window.location.reload();
+          window.location.reload();
        }
         return (
             <div className="container">
