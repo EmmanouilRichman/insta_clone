@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import { Redirect } from 'react-router';
 
+
 export default class EditPost extends Component {
     constructor({match, ...props}){
         super(props);

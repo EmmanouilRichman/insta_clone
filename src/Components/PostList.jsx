@@ -2,14 +2,14 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { useAuth0 } from '@auth0/auth0-react';
+import { withAuth0 } from '@auth0/auth0-react';
 import Moment from 'moment';
 import Nav from 'react-bootstrap/Nav';
 import {Link} from 'react-router-dom';
 
 
 
-export default class PostList extends Component {
+ class PostList extends Component {
     constructor(props){
         super(props);
 
@@ -38,6 +38,8 @@ export default class PostList extends Component {
     }
 
     render() {
+        const{isAuthenticated} = this.props.auth0;
+        if(isAuthenticated){
         return (
             <div className='container' style={{textAlign: 'center' }}>
                 {this.state.posts.map(post => {
@@ -60,8 +62,9 @@ export default class PostList extends Component {
                                    })}
                                   </ul>
                                 </div>
-                                <Link to={`/edit/${post._id}`} >Edit</Link>
-                                <Link to={`/comment/${post._id}`}>Comment</Link>
+                                <Link to={`/edit/${post._id}`} style={{float: 'left'}}>Edit</Link>
+                                <Link to={`/comment/${post._id}`} style={{float: 'right'}}>Comment</Link>
+                                <br/>
                                 <Button variant="danger" onClick={() => this.deletePost(`${post._id}`)}>Delete</Button>
                             </Card.Body>
                         </Card>
@@ -70,5 +73,18 @@ export default class PostList extends Component {
                 })}
             </div>
         )
+        }
+        else{
+            return(
+                <div className="container">
+                    <div className="jumbotron" style={{textAlign: 'center'}}>
+                        <h1>Welcome to mannygram!!</h1>
+                        <p>Please sign in!</p>
+                    </div>
+                </div>
+            )
+        }
     }
 }
+
+export default withAuth0(PostList);

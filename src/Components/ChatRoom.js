@@ -85,7 +85,7 @@ export default class ChatRoom extends Component {
                     </ul>
 
                 </div>
-
+                
                <div className="container" style={{textAlign: 'center', marginTop: '100px'}}>
                 <form onSubmit={(this.onSubmit)} style={{width: '300px', marginLeft: '35%'}}>
                     <h3>Chat</h3>
