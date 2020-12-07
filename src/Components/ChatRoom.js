@@ -1,16 +1,15 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Redirect } from 'react-router';
 import Moment from 'moment';
+import{withAuth0} from '@auth0/auth0-react';
 
-export default class ChatRoom extends Component {
-  intervalID;
+ class ChatRoom extends Component {
+    intervalID;
     constructor(props){
         super(props);
 
 
         this.onChangeMessage = this.onChangeMessage.bind(this);
-        this.onChangeName = this.onChangeName.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -21,13 +20,20 @@ export default class ChatRoom extends Component {
         }
     }
     componentDidMount(){
+        this.getData();
+    }
 
-      this.getData();
+    componentWillMount(){
+        const{user} = this.props.auth0;
+        this.setState({
+           name: user.name
+       })
     }
 
     componentWillUnmount(){
       clearTimeout(this.intervalID);
     }
+
 
     getData = () => {
       axios.get('http://localhost:5000/chat/')
@@ -43,12 +49,6 @@ export default class ChatRoom extends Component {
         this.setState({
             message: e.target.value
         });
-    }
-
-    onChangeName(e){
-      this.setState({
-        name: e.target.value
-      })
     }
 
     onSubmit(e){
@@ -96,18 +96,15 @@ export default class ChatRoom extends Component {
                         className="form-control" 
                         value={this.state.message} 
                         onChange={this.onChangeMessage}/>
-                        <label>Name</label>
-                         <input type="text" 
-                        className="form-control" 
-                        value={this.state.name} 
-                        onChange={this.onChangeName}/>
-                        </div>
                         <div className="form-group">
                             <input type="submit" value="Send Chat" className="btn btn-primary" />
                         </div>
+                    </div>
                 </form>
                </div>
             </div>
         )
     }
 }
+
+export default withAuth0(ChatRoom);

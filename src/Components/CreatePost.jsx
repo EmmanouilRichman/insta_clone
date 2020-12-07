@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import { Redirect } from 'react-router';
 import {withAuth0} from '@auth0/auth0-react';
 
 class CreatePost extends Component {
@@ -44,7 +43,7 @@ class CreatePost extends Component {
     setUser(){
         const{user} = this.props.auth0;
         this.setState({
-            name: `${user.name}`
+            name: user.name
         })
     }
 
