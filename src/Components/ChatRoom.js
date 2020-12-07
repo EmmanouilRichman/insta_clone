@@ -74,18 +74,19 @@ export default class ChatRoom extends Component {
             <div className="container">
                 <div className="jumbotron" style={{textAlign: 'center'}}>
                     <h1>Chat Room</h1>
+                    <p>Chat away...</p>
                 </div>
                 <div className="container" style={{border: '1px solid black', height: '300px', marginTop: '100px',overflowX:'hidden', overflowY: 'auto'}}>
                     <ul style={{listStyle: 'none'}}>
                     {this.state.messages.map(chat => {
                         return(
-                        <li style={{marginTop: "20px", overflow: 'scroll'}}>{chat.name}: {chat.message} - <i>{Moment(`${chat.date}`).format('MM/DD/YYYY')}</i></li>
+                        <li style={{marginTop: "20px", overflow: 'scroll'}}>{chat.name}: {chat.message} - <i>{Moment(`${chat.date}`).format('MM/DD/YYYY hh:mm A')}</i></li>
                         )
                     })}
                     </ul>
 
                 </div>
-                
+
                <div className="container" style={{textAlign: 'center', marginTop: '100px'}}>
                 <form onSubmit={(this.onSubmit)} style={{width: '300px', marginLeft: '35%'}}>
                     <h3>Chat</h3>

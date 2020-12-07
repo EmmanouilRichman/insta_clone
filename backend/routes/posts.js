@@ -16,11 +16,13 @@ router.route('/add').post((req, res) => {
         const title = req.body.title;
         const description = req.body.description;
         const img = req.body.img;
+        const name = req.body.name
 
         const newPost = new Post({
             title,
             description,
             img,
+            name
         });
         newPost.save()
             .then(() => res.json('Post added'))

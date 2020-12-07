@@ -51,19 +51,9 @@ import {Link} from 'react-router-dom';
                             <Card.Body>
                                 <Card.Text>{post.title}</Card.Text>
                                 <Card.Text>{post.description}</Card.Text>
-                                <Card.Text>Likes: {post.likeCount} </Card.Text>
+                                <Card.Text>Created by {post.name}</Card.Text>
                                 <Card.Text>Created on: {Moment(`${post.date}`).format('MM/DD/YYYY')}</Card.Text>
-                                <div>
-                                    <ul>
-                                   {post.comments.map(comment => {
-                                       return(
-                                        <li>{comment.message}</li>
-                                       );
-                                   })}
-                                  </ul>
-                                </div>
-                                <Link to={`/edit/${post._id}`} style={{float: 'left'}}>Edit</Link>
-                                <Link to={`/comment/${post._id}`} style={{float: 'right'}}>Comment</Link>
+                                <Link to={`/edit/${post._id}`} >Edit</Link>
                                 <br/>
                                 <Button variant="danger" onClick={() => this.deletePost(`${post._id}`)}>Delete</Button>
                             </Card.Body>

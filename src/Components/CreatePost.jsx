@@ -11,14 +11,19 @@ class CreatePost extends Component {
         this.onChangeDescription = this.onChangeDescription.bind(this);
         this.onChangeImg = this.onChangeImg.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.setUser = this.setUser.bind(this);
 
 
         this.state = {
             title: '',
             description: '',
             img: '',
+            name: '',
             redirect: false
         }
+    }
+    componentDidMount(){
+        this.setUser();
     }
     onChangeTitle(e){
         this.setState({
@@ -36,12 +41,20 @@ class CreatePost extends Component {
         this.setState({ img: e.target.value});
     }
 
+    setUser(){
+        const{user} = this.props.auth0;
+        this.setState({
+            name: `${user.name}`
+        })
+    }
+
     onSubmit(e){
        e.preventDefault();
         const post = {
             title: this.state.title,
             description: this.state.description,
-            img: this.state.img
+            img: this.state.img,
+            name: this.state.name
         };
        axios.post('http://localhost:5000/posts/add', post)
         .then(res => console.log(res.data))
@@ -53,7 +66,7 @@ class CreatePost extends Component {
 
     render() {
         if (this.state.redirect) {
-            return <Redirect push to="/" />;
+           window.location = "/";
        }
         return (
             <div>

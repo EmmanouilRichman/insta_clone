@@ -66,7 +66,7 @@ export default class EditPost extends Component {
     }
     render() {
         if(this.state.redirect){
-            return <Redirect push to="/" />;
+           window.location = "/";
         }
         return (
             <div>
