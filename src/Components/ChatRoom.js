@@ -5,7 +5,7 @@ import{withAuth0} from '@auth0/auth0-react';
 
  class ChatRoom extends Component {
     intervalID;
-    constructor(props){
+    constructor({isLoading, ...props}){
         super(props);
 
 
@@ -23,12 +23,6 @@ import{withAuth0} from '@auth0/auth0-react';
         this.getData();
     }
 
-    componentWillMount(){
-        const{user} = this.props.auth0;
-        this.setState({
-           name: user.name
-       })
-    }
 
     componentWillUnmount(){
       clearTimeout(this.intervalID);
@@ -36,14 +30,18 @@ import{withAuth0} from '@auth0/auth0-react';
 
 
     getData = () => {
-      axios.get('http://localhost:600/chat/')
+      axios.get('http://localhost:5000/chat/')
       .then(res => {
           this.setState({messages: res.data})
           this.intervalID = setTimeout(this.getData.bind(this), 5000);
-      })
+          const{user} = this.props.auth0;
+            this.setState({
+            name: user.name
+        })})
       .catch((error) => {
           console.log(error);
       })
+
     }
     onChangeMessage(e){
         this.setState({
@@ -58,18 +56,15 @@ import{withAuth0} from '@auth0/auth0-react';
         message: this.state.message,
         name: this.state.name,
     };
-   axios.post('http://localhost:600/chat/add',newMessage)
+   axios.post('http://localhost:5000/chat/add',newMessage)
     .then(res => console.log(res.data))
     .catch((error) => {
         console.log(error);
     })
-       this.setState({redirect: true});
+       window.location.reload();
     }
 
     render() {
-        if (this.state.redirect) {
-          window.location.reload();
-       }
         return (
             <div className="container">
                 <div className="jumbotron" style={{textAlign: 'center'}}>

@@ -55,7 +55,7 @@ class CreatePost extends Component {
             img: this.state.img,
             name: this.state.name
         };
-       axios.post('http://localhost:600/posts/add', post)
+       axios.post('http://localhost:5000/posts/add', post)
         .then(res => console.log(res.data))
         .catch((error) => {
             console.log(error);

@@ -20,7 +20,7 @@ import {Link} from 'react-router-dom';
         };
     }
     componentDidMount(){
-        axios.get('http://localhost:600/posts/')
+        axios.get('http://localhost:5000/posts/')
             .then(res => {
                 this.setState({posts: res.data})
             })
@@ -30,7 +30,7 @@ import {Link} from 'react-router-dom';
     }
 
     deletePost(id){
-        axios.delete('http://localhost:600/posts/' + id)
+        axios.delete('http://localhost:5000/posts/' + id)
             .then(res => console.log(res.data));
         this.setState({
             posts: this.state.posts.filter(el => el._id !== id)
@@ -38,11 +38,12 @@ import {Link} from 'react-router-dom';
     }
 
     render() {
-        const{isAuthenticated} = this.props.auth0;
+        const{isAuthenticated, user} = this.props.auth0;
         if(isAuthenticated){
         return (
             <div className='container' style={{textAlign: 'center' }}>
                 {this.state.posts.map(post => {
+                    if(isAuthenticated && post.name === user.name){
                     return(
                     <div>
                         <Card className="text-center" style={{width: '18rem', float: 'left', marginRight: '10px', marginTop: '20px'}}>
@@ -59,7 +60,23 @@ import {Link} from 'react-router-dom';
                             </Card.Body>
                         </Card>
                     </div>
-                    );
+                    )}
+                    else{
+                        return(
+                        <div>
+                        <Card className="text-center" style={{width: '18rem', float: 'left', marginRight: '10px', marginTop: '20px'}}>
+                            <Card.Img style={{height: '200px', width: 'auto'}} variant="top" src={`${post.img}`} />
+                            <br/>
+                            <Card.Body>
+                                <Card.Text>{post.title}</Card.Text>
+                                <Card.Text>{post.description}</Card.Text>
+                                <Card.Text>Created by {post.name}</Card.Text>
+                                <Card.Text>Created on: {Moment(`${post.date}`).format('MM/DD/YYYY')}</Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                        )
+                    }
                 })}
             </div>
         )
@@ -68,7 +85,7 @@ import {Link} from 'react-router-dom';
             return(
                 <div className="container">
                     <div className="jumbotron" style={{textAlign: 'center'}}>
-                        <h1>Welcome to mannygram!!</h1>
+                        <h1>Welcome to MannyGram!!</h1>
                         <p>Please sign in!</p>
                     </div>
                 </div>

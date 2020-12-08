@@ -12,6 +12,7 @@ ReactDOM.render(
     clientId={clientId}
     redirectUri={window.location.origin}
     cacheLocation="localstorage"
+    bearer
     >
       <App />
     </Auth0Provider>,
